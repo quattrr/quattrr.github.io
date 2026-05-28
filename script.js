@@ -583,8 +583,17 @@ const updateProgressUI = (elapsedMs, durationMs) => {
   }
   const safeDuration = Math.max(durationMs || 0, 0);
   const safeElapsed = Math.min(Math.max(elapsedMs || 0, 0), safeDuration);
-  durationEl.textContent = formatTime(safeDuration);
-  elapsedEl.textContent = formatTime(safeElapsed);
+
+  const durationText = formatTime(safeDuration);
+  if (durationEl.textContent !== durationText) {
+    durationEl.textContent = durationText;
+  }
+
+  const elapsedText = formatTime(safeElapsed);
+  if (elapsedEl.textContent !== elapsedText) {
+    elapsedEl.textContent = elapsedText;
+  }
+
   const percent = safeDuration ? (safeElapsed / safeDuration) * 100 : 0;
   progressFillEl.style.width = `${percent}%`;
 };
@@ -796,7 +805,7 @@ const startSpotifyProgress = (startTime, durationMs) => {
   };
 
   updateProgress();
-  trackTimer = setInterval(updateProgress, 1000);
+  trackTimer = setInterval(updateProgress, 50);
 };
 
 const updateViewCount = async () => {
@@ -891,6 +900,12 @@ const updateOfflineProgress = () => {
     : 0;
   updateProgressUI(elapsedMs, durationMs);
   updateLyricsProgress(elapsedMs, durationMs);
+};
+
+const startOfflineProgress = () => {
+  clearTrackTimer();
+  updateOfflineProgress();
+  trackTimer = setInterval(updateOfflineProgress, 50);
 };
 
 const setOfflineTrack = (track, shouldPlay = false) => {
@@ -1024,11 +1039,13 @@ const initializeOfflineAudio = () => {
   offlineAudioEl.addEventListener("play", () => {
     if (playbackSource === "offline") {
       setPlayButtonState(true);
+      startOfflineProgress();
     }
   });
   offlineAudioEl.addEventListener("pause", () => {
     if (playbackSource === "offline") {
       setPlayButtonState(false);
+      clearTrackTimer();
     }
   });
   offlineAudioEl.addEventListener("ended", () => {
