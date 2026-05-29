@@ -277,6 +277,8 @@ button {
 
 .music-card {
   position: relative;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .view-panels {
@@ -293,6 +295,7 @@ button {
   flex-direction: column;
   gap: 0.85rem;
   width: 100%;
+  box-sizing: border-box;
 }
 
 .view-panel.is-active,
@@ -320,6 +323,10 @@ button {
 
 .view-panel.is-measuring * {
   transition: none !important;
+}
+
+.view-panel.is-measuring .playlist-popover {
+  display: none !important;
 }
 
 .view-panel.is-active {
@@ -582,6 +589,8 @@ button {
 }
 
 .playlist-popover {
+  max-height: 250px;
+  overflow-y: auto;
   position: absolute;
   top: 48px;
   right: 0;
@@ -1006,6 +1015,8 @@ button {
   overflow: hidden;
   transition: max-height 0.35s ease, opacity 0.35s ease,
     padding 0.35s ease, border-color 0.35s ease;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .lyrics-panel.is-collapsed {
@@ -1020,10 +1031,12 @@ button {
   font-size: 0.6rem;
   letter-spacing: 0.12em;
   color: var(--muted-gray);
+  flex-shrink: 0;
 }
 
 .lyrics-body {
-  max-height: 120px;
+  width: 100%;
+  box-sizing: border-box;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -1035,6 +1048,10 @@ button {
 
 .lyrics-line {
   transition: color 0.3s ease;
+  width: 100%;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
 }
 
 .lyrics-line.is-active {
@@ -1292,4 +1309,22 @@ button {
   display: block;
   text-decoration: none;
   color: inherit;
+}
+
+.playlist-popover::-webkit-scrollbar {
+  width: 6px;
+}
+
+.playlist-popover::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 10px;
+}
+
+.playlist-popover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+}
+
+.playlist-popover::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
