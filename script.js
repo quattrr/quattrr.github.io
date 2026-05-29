@@ -146,7 +146,7 @@ const playlistTracks = [
     title: "Lost in the Fire",
     artist: "Gesaffelstein,  The Weeknd",
     art: "music/gesaffelstein___lost_in_the_fire_art.jpg",
-    accent: "#1db954",
+    accent: "#f0f0f0",
     file: "music/Gesaffelstein%20-%20Lost%20in%20the%20Fire.mp3",
     source: "offline",
   },
@@ -173,7 +173,7 @@ const playlistTracks = [
     title: "Guilt Trip",
     artist: "Kanye West",
     art: "music/kanye_west___guilt_trip_art.jpg",
-    accent: "#f0f0f0",
+    accent: "#fb0800",
     file: "music/Kanye%20West%20-%20Guilt%20Trip.mp3",
     source: "offline",
   },
@@ -182,7 +182,7 @@ const playlistTracks = [
     title: "Overdue",
     artist: "Metro Boomin,  Travis Scott",
     art: "music/metro_boomin___overdue_art.jpg",
-    accent: "#f0f0f0",
+    accent: "#c3581a",
     file: "music/Metro%20Boomin%20-%20Overdue.mp3",
     source: "offline",
   },
@@ -218,7 +218,7 @@ const playlistTracks = [
     title: "Can't Feel My Face",
     artist: "The Weeknd",
     art: "music/the_weeknd___can_t_feel_my_face_art.jpg",
-    accent: "#303030",
+    accent: "#8a8a8a",
     file: "music/The%20Weeknd%20-%20Can%20t%20Feel%20My%20Face.mp3",
     source: "offline",
   },
@@ -227,7 +227,7 @@ const playlistTracks = [
     title: "Coming Down",
     artist: "The Weeknd",
     art: "music/the_weeknd___coming_down_%282%29_art.jpg",
-    accent: "#303030",
+    accent: "#8a8a8a",
     file: "music/The%20Weeknd%20-%20Coming%20Down%20%282%29.mp3",
     source: "offline",
   },
@@ -639,7 +639,7 @@ const getMainColor = (imgUrl) => {
           const [r, g, b] = rgbStr.split(",").map(Number);
           // Calculate luminance to determine if the color is too dark
           const luminance = 0.299 * r + 0.587 * g + 0.114 * b;
-          if (luminance >= 40) {
+          if (luminance >= 60) {
             selectedColor = { r, g, b };
             break;
           }
