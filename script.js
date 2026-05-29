@@ -164,7 +164,7 @@ const playlistTracks = [
     title: "Ghost Town",
     artist: "Kanye West,  PARTYNEXTDOOR",
     art: "music/ghost_town_album_art.jpg",
-    accent: "#103050",
+    accent: "#3e5e81",
     file: "music/Kanye%20West%20-%20Ghost%20Town.mp3",
     source: "offline",
   },
