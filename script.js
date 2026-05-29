@@ -133,12 +133,102 @@ const SPOTIFY_LIVE_OPTION = {
 };
 const playlistTracks = [
   {
-    id: "ghost-town",
+    id: "butterfly-crazy-town",
+    title: "Butterfly",
+    artist: "Crazy Town",
+    art: "music/butterfly_crazy_town_art.jpg",
+    accent: "#705050",
+    file: "music/Butterfly%20crazy%20town.mp3",
+    source: "offline",
+  },
+  {
+    id: "gesaffelstein---lost-in-the-fire",
+    title: "Lost in the Fire",
+    artist: "Gesaffelstein,  The Weeknd",
+    art: "music/gesaffelstein___lost_in_the_fire_art.jpg",
+    accent: "#1db954",
+    file: "music/Gesaffelstein%20-%20Lost%20in%20the%20Fire.mp3",
+    source: "offline",
+  },
+  {
+    id: "jay-z---why-i-love-you-(album-version-edited)",
+    title: "Why I Love You",
+    artist: "JAY-Z,  Kanye West,  Mr Hudson",
+    art: "music/jay_z___why_i_love_you_%28album_version_edited%29_art.jpg",
+    accent: "#b09070",
+    file: "music/JAY%20Z%20-%20Why%20I%20Love%20You%20%28Album%20Version%20Edited%29.mp3",
+    source: "offline",
+  },
+  {
+    id: "kanye-west---ghost-town",
     title: "Ghost Town",
-    artist: "Kanye West",
+    artist: "Kanye West,  PARTYNEXTDOOR",
     art: "music/ghost_town_album_art.jpg",
-    accent: "#7f7cff",
+    accent: "#103050",
     file: "music/Kanye%20West%20-%20Ghost%20Town.mp3",
+    source: "offline",
+  },
+  {
+    id: "kanye-west---guilt-trip",
+    title: "Guilt Trip",
+    artist: "Kanye West",
+    art: "music/kanye_west___guilt_trip_art.jpg",
+    accent: "#f0f0f0",
+    file: "music/Kanye%20West%20-%20Guilt%20Trip.mp3",
+    source: "offline",
+  },
+  {
+    id: "metro-boomin---overdue",
+    title: "Overdue",
+    artist: "Metro Boomin,  Travis Scott",
+    art: "music/metro_boomin___overdue_art.jpg",
+    accent: "#f0f0f0",
+    file: "music/Metro%20Boomin%20-%20Overdue.mp3",
+    source: "offline",
+  },
+  {
+    id: "missing-everything-but-the-girl",
+    title: "Missing",
+    artist: "Everything But The Girl",
+    art: "music/missing_everything_but_the_girl_art.jpg",
+    accent: "#f0f0f0",
+    file: "music/Missing%20everything%20but%20the%20girl.mp3",
+    source: "offline",
+  },
+  {
+    id: "pink-floyd---have-a-cigar",
+    title: "Have a Cigar",
+    artist: "Pink Floyd",
+    art: "music/pink_floyd___have_a_cigar_art.jpg",
+    accent: "#f0f0f0",
+    file: "music/Pink%20Floyd%20-%20Have%20a%20Cigar.mp3",
+    source: "offline",
+  },
+  {
+    id: "sade---kiss-of-life",
+    title: "Kiss of Life",
+    artist: "Sade",
+    art: "music/sade___kiss_of_life_art.jpg",
+    accent: "#d0d0d0",
+    file: "music/Sade%20-%20Kiss%20of%20Life.mp3",
+    source: "offline",
+  },
+  {
+    id: "the-weeknd---can-t-feel-my-face",
+    title: "Can't Feel My Face",
+    artist: "The Weeknd",
+    art: "music/the_weeknd___can_t_feel_my_face_art.jpg",
+    accent: "#303030",
+    file: "music/The%20Weeknd%20-%20Can%20t%20Feel%20My%20Face.mp3",
+    source: "offline",
+  },
+  {
+    id: "the-weeknd---coming-down-(2)",
+    title: "Coming Down",
+    artist: "The Weeknd",
+    art: "music/the_weeknd___coming_down_%282%29_art.jpg",
+    accent: "#303030",
+    file: "music/The%20Weeknd%20-%20Coming%20Down%20%282%29.mp3",
     source: "offline",
   },
 ];
@@ -646,6 +736,14 @@ const updateActivePanelHeight = () => {
   }
 };
 
+const lockLyricsHeight = () => {
+  if (!lyricsBodyEl || !lyricsPanelEl) return;
+  lyricsBodyEl.style.height = 'auto';
+  const contentHeight = lyricsBodyEl.scrollHeight;
+  const lockedHeight = Math.min(contentHeight, 120);
+  lyricsBodyEl.style.height = `${lockedHeight}px`;
+};
+
 const setLyricsVisibility = (isOpen) => {
   if (!lyricsPanelEl || !lyricsToggleEl) {
     return;
@@ -672,6 +770,7 @@ const setLyricsMessage = (message) => {
   line.className = "lyrics-line";
   line.textContent = message;
   lyricsBodyEl.appendChild(line);
+  lockLyricsHeight();
   updateActivePanelHeight();
 };
 
@@ -693,6 +792,7 @@ const setLyricsLines = (lines) => {
     line.textContent = lineText || "…";
     lyricsBodyEl.appendChild(line);
   });
+  lockLyricsHeight();
   updateActivePanelHeight();
 };
 
@@ -714,6 +814,7 @@ const setLyricsCues = (cues) => {
     line.textContent = lineText || "…";
     lyricsBodyEl.appendChild(line);
   });
+  lockLyricsHeight();
   updateActivePanelHeight();
 };
 
@@ -784,8 +885,12 @@ const updateLyricsProgress = (elapsedMs, durationMs) => {
   const current = lyricsBodyEl.children[nextIndex];
   if (current) {
     current.classList.add("is-active");
-    current.scrollIntoView({
-      block: "center",
+    const container = lyricsBodyEl;
+    const currentRect = current.getBoundingClientRect();
+    const containerRect = container.getBoundingClientRect();
+    const targetScrollTop = container.scrollTop + (currentRect.top - containerRect.top) - (container.clientHeight / 2) + (currentRect.height / 2);
+    container.scrollTo({
+      top: targetScrollTop,
       behavior: prefersReducedMotion() ? "auto" : "smooth",
     });
   }
