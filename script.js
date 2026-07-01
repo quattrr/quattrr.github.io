@@ -369,19 +369,19 @@ const PLATFORM_ICONS = {
 };
 
 const DISCORD_BADGES = [
-  { flag: 1, label: "Discord Staff", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordstaff.svg" },
-  { flag: 2, label: "Partnered Server Owner", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordpartner.svg" },
-  { flag: 4, label: "HypeSquad Events", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hypesquadevents.svg" },
-  { flag: 8, label: "Discord Bug Hunter (Tier 1)", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordbughunter1.svg" },
-  { flag: 64, label: "HypeSquad Bravery", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hypesquadbravery.svg" },
-  { flag: 128, label: "HypeSquad Brilliance", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hypesquadbrilliance.svg" },
-  { flag: 256, label: "HypeSquad Balance", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hypesquadbalance.svg" },
-  { flag: 512, label: "Early Supporter", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordearlysupporter.svg" },
-  { flag: 16384, label: "Discord Bug Hunter (Tier 2)", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordbughunter2.svg" },
-  { flag: 131072, label: "Early Verified Bot Developer", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordbotdev.svg" },
-  { flag: 262144, label: "Moderator Programs Alumni", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discordmod.svg" },
-  { flag: 524288, label: "Supports Commands", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/supportscommands.svg" },
-  { flag: 4194304, label: "Active Developer", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/activedeveloper.svg" },
+  { flag: 1, label: "Discord Staff", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-staff.svg" },
+  { flag: 2, label: "Partnered Server Owner", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-partner.svg" },
+  { flag: 4, label: "HypeSquad Events", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hype-squad-events.svg" },
+  { flag: 8, label: "Discord Bug Hunter (Tier 1)", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-bug-hunter-green.svg" },
+  { flag: 64, label: "HypeSquad Bravery", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hype-squad-bravery.svg" },
+  { flag: 128, label: "HypeSquad Brilliance", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hype-squad-brilliance.svg" },
+  { flag: 256, label: "HypeSquad Balance", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/hype-squad-balance.svg" },
+  { flag: 512, label: "Early Supporter", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-early-supporter.svg" },
+  { flag: 16384, label: "Discord Bug Hunter (Tier 2)", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-bug-hunter-gold.svg" },
+  { flag: 131072, label: "Early Verified Bot Developer", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-bot-dev.svg" },
+  { flag: 262144, label: "Moderator Programs Alumni", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-mod.svg" },
+  { flag: 524288, label: "Supports Commands", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/supports-commands.svg" },
+  { flag: 4194304, label: "Active Developer", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/active-developer.svg" },
   { flag: 16777216, label: "Uses Automod", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/automod.svg" },
 ];
 
@@ -432,7 +432,12 @@ const updateBadges = (user) => {
   // Hardcode 24 month Server Boost badge
   earnedBadges.push({
     label: "Server Booster (24 Months)",
-    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/boosts/discordboost9.svg"
+    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/boosts/discord-boost-9.svg"
+  });
+
+  earnedBadges.push({
+    label: "Gifting Patron",
+    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/gifting/patron.png"
   });
 
   if (!earnedBadges.length) {
