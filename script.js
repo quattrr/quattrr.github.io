@@ -435,11 +435,6 @@ const updateBadges = (user) => {
     icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/boosts/discordboost9.svg"
   });
 
-  earnedBadges.push({
-    label: "Gifting Patron",
-    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/gifting/patron.png"
-  });
-
   if (!earnedBadges.length) {
     badgeListEl.style.display = "none";
     return;
