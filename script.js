@@ -536,7 +536,8 @@ const updateRobloxOnlineStatus = (label, isOnline) => {
 };
 
 const updateRobloxCount = (element, value) => {
-  if (!element) {
+ if (Number.isNaN(value) || value === "NaN") {
+    element.textContent = "NaN";
     return;
   }
   const parsedValue = typeof value === "number" ? value : Number(value);
@@ -550,13 +551,13 @@ const fetchRobloxCollectiblesRap = async () => {
   try {
     const url = `https://api.codetabs.com/v1/proxy?quest=${encodeURIComponent(`https://api.rolimons.com/players/v1/playerinfo/${ROBLOX_USER_ID}`)}`;
     const response = await fetch(url);
-    if (!response.ok) return null;
+    if (!response.ok) return NaN;
     const data = await response.json();
-    if (!data || !data.rap) return null;
-    return data.rap > 0 ? data.rap : null;
+    if (!data || !data.rap) return NaN;
+    return data.rap > 0 ? data.rap : NaN;
   } catch (error) {
     console.warn("Rolimons RAP fetch failed", error);
-    return null;
+    return NaN;
   }
 };
 
