@@ -50,6 +50,7 @@ const displayNameEl = document.getElementById("displayName");
 const handleEl = document.getElementById("handle");
 const presenceEl = document.getElementById("presence");
 const statusTextEl = document.getElementById("statusText");
+const avatarDecorationEl = document.getElementById("avatarDecoration");
 const statusDotEl = document.getElementById("statusDot");
 const viewCountEl = document.getElementById("viewCount");
 const viewStatEl = document.getElementById("viewStat");
@@ -1262,6 +1263,14 @@ const updatePresence = (data) => {
   displayNameEl.textContent = displayName;
   handleEl.textContent = `@${(user?.username || "quattr").toLowerCase()}`;
   avatarEl.src = getAvatarUrl(user);
+  
+  if (user?.avatar_decoration_data?.asset && avatarDecorationEl) {
+    avatarDecorationEl.src = `https://cdn.discordapp.com/avatar-decoration-presets/${user.avatar_decoration_data.asset}.png`;
+    avatarDecorationEl.style.display = "block";
+  } else if (avatarDecorationEl) {
+    avatarDecorationEl.style.display = "none";
+  }
+
   updateBadges(user);
 
   const status = data.discord_status || "offline";
