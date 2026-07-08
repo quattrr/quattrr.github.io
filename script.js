@@ -932,10 +932,10 @@ const updateViewCount = async () => {
 
     let response;
     if (!hasVisited) {
-      response = await fetch("https://api.counterapi.dev/v1/quattr_one/visits/up");
+      response = await fetch("https://api.counterapi.dev/v1/quattr_one/visits_v2/up");
       sessionStorage.setItem("quattrSessionVisited", "true");
     } else {
-      response = await fetch("https://api.counterapi.dev/v1/quattr_one/visits/");
+      response = await fetch("https://api.counterapi.dev/v1/quattr_one/visits_v2/");
     }
 
     if (response.ok) {
