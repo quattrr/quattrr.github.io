@@ -53,10 +53,7 @@ const statusTextEl = document.getElementById("statusText");
 const avatarDecorationEl = document.getElementById("avatarDecoration");
 const statusDotEl = document.getElementById("statusDot");
 const viewCountEl = document.getElementById("viewCount");
-const viewStatEl = document.getElementById("viewStat");
 const badgeListEl = document.getElementById("badgeList");
-const platformIconEl = document.getElementById("platformIcon");
-const platformTextEl = document.getElementById("platformText");
 const preloaderEl = document.getElementById("preloader");
 const preloaderFillEl = document.getElementById("preloaderFill");
 
@@ -85,19 +82,11 @@ const playlistPopoverEl = document.getElementById("playlistPopover");
 const terminalButton = document.querySelector(
   '.global-actions .icon-button[aria-label="Terminal"]'
 );
-const settingsButton = document.querySelector(
-  '.global-actions .icon-button[aria-label="Settings"]'
-);
 const terminalWindow = document.getElementById("terminalWindow");
 const terminalHeader = document.getElementById("terminalHeader");
 const terminalCloseEl = document.getElementById("terminalClose");
 const terminalOutputEl = document.getElementById("terminalOutput");
 const terminalInputEl = document.getElementById("terminalInput");
-const settingsWindow = document.getElementById("settingsWindow");
-const settingsCloseEl = document.getElementById("settingsClose");
-const settingsHeader = document.getElementById("settingsHeader");
-const trailToggleEl = document.getElementById("trailToggle");
-const awesomeToggleEl = document.getElementById("awesomeToggle");
 const trailCanvas = document.getElementById("cursorTrail");
 const trailCtx = trailCanvas ? trailCanvas.getContext("2d") : null;
 const robloxSummaryHandleEl = document.getElementById("robloxSummaryHandle");
@@ -145,7 +134,7 @@ const playlistTracks = [
   {
     id: "gesaffelstein---lost-in-the-fire",
     title: "Lost in the Fire",
-    artist: "Gesaffelstein,  The Weeknd",
+    artist: "Gesaffelstein, The Weeknd",
     art: "music/gesaffelstein___lost_in_the_fire_art.jpg",
     accent: "#f0f0f0",
     file: "music/Gesaffelstein%20-%20Lost%20in%20the%20Fire.mp3",
@@ -154,7 +143,7 @@ const playlistTracks = [
   {
     id: "jay-z---why-i-love-you-(album-version-edited)",
     title: "Why I Love You",
-    artist: "JAY-Z,  Kanye West,  Mr Hudson",
+    artist: "JAY-Z, Kanye West, Mr Hudson",
     art: "music/jay_z___why_i_love_you_%28album_version_edited%29_art.jpg",
     accent: "#b09070",
     file: "music/JAY%20Z%20-%20Why%20I%20Love%20You%20%28Album%20Version%20Edited%29.mp3",
@@ -163,7 +152,7 @@ const playlistTracks = [
   {
     id: "kanye-west---ghost-town",
     title: "Ghost Town",
-    artist: "Kanye West,  PARTYNEXTDOOR",
+    artist: "Kanye West, PARTYNEXTDOOR",
     art: "music/ghost_town_album_art.jpg",
     accent: "#3e5e81",
     file: "music/Kanye%20West%20-%20Ghost%20Town.mp3",
@@ -181,7 +170,7 @@ const playlistTracks = [
   {
     id: "metro-boomin---overdue",
     title: "Overdue",
-    artist: "Metro Boomin,  Travis Scott",
+    artist: "Metro Boomin, Travis Scott",
     art: "music/metro_boomin___overdue_art.jpg",
     accent: "#c3581a",
     file: "music/Metro%20Boomin%20-%20Overdue.mp3",
@@ -244,9 +233,6 @@ let trailHeight = 0;
 let draggingTerminal = false;
 let dragOffsetX = 0;
 let dragOffsetY = 0;
-let draggingSettings = false;
-let settingsDragOffsetX = 0;
-let settingsDragOffsetY = 0;
 let playbackSource = "offline";
 let preferSpotify = null;
 let latestSpotify = null;
@@ -350,25 +336,6 @@ const runPreloader = () => {
   tick();
 };
 
-const PLATFORM_ICONS = {
-  mobile: `<svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="7" y="2" width="10" height="20" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
-    <circle cx="12" cy="18" r="1" fill="currentColor" />
-  </svg>`,
-  web: `<svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5" />
-    <path d="M4 12h16M12 4a10 10 0 0 1 0 16M12 4a10 10 0 0 0 0 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-  </svg>`,
-  desktop: `<svg viewBox="0 0 24 24" aria-hidden="true">
-    <rect x="3" y="4" width="18" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5" />
-    <path d="M8 20h8M12 16v4" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-  </svg>`,
-  offline: `<svg viewBox="0 0 24 24" aria-hidden="true">
-    <circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.5" />
-    <path d="M5 5l14 14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
-  </svg>`,
-};
-
 const DISCORD_BADGES = [
   { flag: 1, label: "Discord Staff", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-staff.svg" },
   { flag: 2, label: "Partnered Server Owner", icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/discord-partner.svg" },
@@ -393,31 +360,6 @@ const normalizeBadgeIconUrl = (iconUrl) => {
   return iconUrl;
 };
 
-const getPlatformInfo = (data, status) => {
-  if (data?.active_on_discord_mobile) {
-    return { id: "mobile", label: "Mobile" };
-  }
-  if (data?.active_on_discord_web) {
-    return { id: "web", label: "Web" };
-  }
-  if (data?.active_on_discord_desktop) {
-    return { id: "desktop", label: "App" };
-  }
-  if (status === "offline") {
-    return { id: "offline", label: "Offline" };
-  }
-  return { id: "desktop", label: "App" };
-};
-
-const updatePlatformDisplay = (data, status) => {
-  if (!platformIconEl || !platformTextEl) {
-    return;
-  }
-  const platform = getPlatformInfo(data, status);
-  platformIconEl.innerHTML = PLATFORM_ICONS[platform.id] || "";
-  platformTextEl.textContent = `${platform.label} · ${status.toUpperCase()}`;
-};
-
 const getBadgeIconSources = (iconUrl) => {
   return [iconUrl];
 };
@@ -429,17 +371,6 @@ const updateBadges = (user) => {
   const flags = Number(user?.public_flags ?? user?.flags ?? 0);
   badgeListEl.innerHTML = "";
   const earnedBadges = DISCORD_BADGES.filter((badge) => flags & badge.flag);
-
-  // Hardcode 24 month Server Boost badge
-  earnedBadges.push({
-    label: "Server Booster (24 Months)",
-    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/boosts/discord-boost-9.svg"
-  });
-
-  earnedBadges.push({
-    label: "Gifting Patron",
-    icon: "https://raw.githubusercontent.com/mezotv/discord-badges/main/assets/gifting/patron.png"
-  });
 
   if (!earnedBadges.length) {
     badgeListEl.style.display = "none";
@@ -948,11 +879,7 @@ const updateViewCount = async () => {
     console.warn("View count API request failed", error);
   }
 
-  const formattedCount = formatCompactCount(currentCount);
-  viewCountEl.textContent = formattedCount;
-  if (viewStatEl) {
-    viewStatEl.textContent = formattedCount;
-  }
+  viewCountEl.textContent = formatCompactCount(currentCount);
 };
 
 const getAvatarUrl = (user) => {
@@ -1276,7 +1203,6 @@ const updatePresence = (data) => {
   const status = data.discord_status || "offline";
   presenceEl.textContent = status.toUpperCase();
   setStatusDot(status);
-  updatePlatformDisplay(data, status);
 
   const customStatus = getCustomStatus(data.activities);
   statusTextEl.textContent = `> ${customStatus}`;
@@ -1504,9 +1430,6 @@ const setTrailEnabled = (enabled) => {
   if (!trailEnabled && trailCtx) {
     trailCtx.clearRect(0, 0, trailWidth, trailHeight);
   }
-  if (trailToggleEl) {
-    trailToggleEl.checked = trailEnabled;
-  }
 };
 
 const toggleTrail = () => {
@@ -1527,9 +1450,6 @@ const appendTerminalLine = (text, className) => {
 
 const setAwesomeMode = (enabled) => {
   awesomeMode = enabled;
-  if (awesomeToggleEl) {
-    awesomeToggleEl.checked = awesomeMode;
-  }
   if (!awesomeMode) {
     if (playbackSource === "spotify") {
       setAccentColor("#1db954");
@@ -1616,28 +1536,6 @@ const closeTerminal = () => {
   terminalWindow.setAttribute("aria-hidden", "true");
 };
 
-const openSettings = () => {
-  if (!settingsWindow) {
-    return;
-  }
-  settingsWindow.classList.add("is-open");
-  settingsWindow.setAttribute("aria-hidden", "false");
-  if (trailToggleEl) {
-    trailToggleEl.checked = trailEnabled;
-  }
-  if (awesomeToggleEl) {
-    awesomeToggleEl.checked = awesomeMode;
-  }
-};
-
-const closeSettings = () => {
-  if (!settingsWindow) {
-    return;
-  }
-  settingsWindow.classList.remove("is-open");
-  settingsWindow.setAttribute("aria-hidden", "true");
-};
-
 const loadPresence = async () => {
   try {
     const response = await fetch(
@@ -1658,7 +1556,6 @@ const loadPresence = async () => {
       presenceEl.textContent = "OFFLINE";
     }
     setStatusDot("offline");
-    updatePlatformDisplay(null, "offline");
     updateBadges(null);
   }
 };
@@ -2205,7 +2102,6 @@ if (playlistPopoverEl) {
 document.addEventListener("keydown", (event) => {
   if (event.key === "Escape") {
     closePlaylistPopover();
-    closeSettings();
   }
 });
 
@@ -2275,28 +2171,8 @@ if (terminalButton) {
   terminalButton.addEventListener("click", openTerminal);
 }
 
-if (settingsButton) {
-  settingsButton.addEventListener("click", openSettings);
-}
-
 if (terminalCloseEl) {
   terminalCloseEl.addEventListener("click", closeTerminal);
-}
-
-if (settingsCloseEl) {
-  settingsCloseEl.addEventListener("click", closeSettings);
-}
-
-if (trailToggleEl) {
-  trailToggleEl.addEventListener("change", (event) => {
-    setTrailEnabled(event.target.checked);
-  });
-}
-
-if (awesomeToggleEl) {
-  awesomeToggleEl.addEventListener("change", (event) => {
-    setAwesomeMode(event.target.checked);
-  });
 }
 
 if (terminalInputEl) {
@@ -2323,25 +2199,8 @@ if (terminalHeader && terminalWindow) {
   });
 }
 
-if (settingsHeader && settingsWindow) {
-  settingsHeader.addEventListener("mousedown", (event) => {
-    draggingSettings = true;
-    const rect = settingsWindow.getBoundingClientRect();
-    settingsDragOffsetX = event.clientX - rect.left;
-    settingsDragOffsetY = event.clientY - rect.top;
-    settingsWindow.style.left = `${rect.left}px`;
-    settingsWindow.style.top = `${rect.top}px`;
-    settingsWindow.style.right = "auto";
-    settingsWindow.style.bottom = "auto";
-  });
-}
-
 window.addEventListener("mousemove", (event) => {
   if (!draggingTerminal || !terminalWindow) {
-    if (draggingSettings && settingsWindow) {
-      settingsWindow.style.left = `${event.clientX - settingsDragOffsetX}px`;
-      settingsWindow.style.top = `${event.clientY - settingsDragOffsetY}px`;
-    }
     return;
   }
   terminalWindow.style.left = `${event.clientX - dragOffsetX}px`;
@@ -2350,7 +2209,6 @@ window.addEventListener("mousemove", (event) => {
 
 window.addEventListener("mouseup", () => {
   draggingTerminal = false;
-  draggingSettings = false;
 });
 
 if (socialItemEls) {
